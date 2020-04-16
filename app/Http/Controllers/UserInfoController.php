@@ -13,8 +13,9 @@ class UserInfoController extends Controller
      */
     public function index()
     {
-        $data = UserInfo::paginate(5); // SELECT * FROM table
+        $data = UserInfo::paginate(5);
         return view('userinfo.index')->with('pagetitle','User Information Listing')
+                                     ->with('status','success')
                                      ->with('data',$data);
     }
 
@@ -64,7 +65,9 @@ class UserInfoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $userInfoData = UserInfo::find($id);
+        // dd($userInfoData);
+        return view('userinfo.edit',['page_title'=>'Edit User Information','userinfodata'=>$userInfoData]);
     }
 
     /**
@@ -76,7 +79,12 @@ class UserInfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $arrData = $request->except(["_token",'_method']);
+        $saveData = UserInfo::where('id',$id)->update($arrData);//UPDATE table SET yourfieldname= value WHERE pk=yourid
+        if($saveData)
+        {
+            return redirect('/userinfo')->with('status','Success!');
+        }
     }
 
     /**
@@ -87,6 +95,9 @@ class UserInfoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = UserInfo::find($id);
+        $data->delete();
+
+       return redirect('/userinfo')->with('status', 'Your data has been deleted Successfully');
     }
 }

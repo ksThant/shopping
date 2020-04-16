@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header">{{$pagetitle}}</div>
                 <div class="card-body">
+                    
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -34,8 +35,12 @@
                             <td>{{$item->user_city}}</td>
                             <td>{{$item->user_township}}</td>
                             <td>
-                                <a href="#" class="btn btn-info">Edit</a>
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="/userinfo/{{$item->id}}/edit" class="btn btn-info">Edit</a>
+                                <form action="/userinfo/{{$item->id}}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm " type="submit">Delete</button>
+                                </form>
                             </td>
                        </tr>
                    @endforeach

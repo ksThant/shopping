@@ -11,4 +11,9 @@ class UserInfo extends Model
     protected $table = 'userinfo';
     protected $fillable = ['user_id','user_address','user_phone','user_city','user_township'];
     protected $dates = ['deleted_at'];
+    
+    public function user()
+    {
+    	return $this->belongsTo('App\User');
+    }
 }
