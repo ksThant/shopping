@@ -7,8 +7,13 @@
             <div class="card">
                 <div class="card-header">{{$pagetitle}}</div>
                 <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <div class="text-right mb-2">
-                        <a href="#" class="btn btn-success">Add New Data</a>
+                        <a href="userinfo/create" class="btn btn-success">Add New Data</a>
                     </div>
                     <table class="table table-bordered">
                         <thead>

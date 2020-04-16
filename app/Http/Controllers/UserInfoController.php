@@ -25,7 +25,7 @@ class UserInfoController extends Controller
      */
     public function create()
     {
-        //
+        return view('userinfo.create');
     }
 
     /**
@@ -36,7 +36,13 @@ class UserInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $arrData = $request->except("_token");
+        $saveData = UserInfo::create($arrData);
+        if($saveData)
+        {
+          return redirect('/userinfo')->with('status','Success!');
+        }
     }
 
     /**
